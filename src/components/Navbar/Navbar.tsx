@@ -1,19 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const pathname = usePathname();
+    const supabase = createClient();
 
     const isActive = (path: string) => pathname === path;
 
     const closeMenu = () => setIsOpen(false);
 
+    // Check authentication status
+    useEffect(() => {
+        const checkAuth = async () => {
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+            setIsAuthenticated(!!session);
+        };
+
+        checkAuth();
+
+        // Listen for auth changes
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setIsAuthenticated(!!session);
+        });
+
+        return () => subscription.unsubscribe();
+    }, [supabase.auth]);
+
     const links = [
+        { name: "Play", url: "/coin" },
         { name: "Scores", url: "/scores" },
-        { name: "Sign In", url: "/auth" },
+        {
+            name: isAuthenticated ? "Account" : "Sign In",
+            url: isAuthenticated ? "/profile" : "/auth",
+        },
     ];
 
     return (
@@ -36,7 +64,7 @@ export default function Navbar() {
                                         key={link.url}
                                         href={link.url}
                                         className={`text-sm font-medium transition-colors ${
-                                            isActive("/scores")
+                                            isActive(link.url)
                                                 ? "text-white"
                                                 : "text-gray-300 hover:text-white"
                                         }`}

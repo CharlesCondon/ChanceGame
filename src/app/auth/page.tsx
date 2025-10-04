@@ -1,34 +1,46 @@
 "use client";
 
 import { useState } from "react";
+import { login, signup } from "./actions";
 
 export default function Auth() {
     const [isSignUp, setIsSignUp] = useState(false);
 
+    const handleSubmit = async (formData: FormData) => {
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        if (isSignUp) {
+            const username = formData.get("username") as string;
+            await signup(username, email, password);
+        } else {
+            await login(email, password);
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4 pt-20">
             <div className="max-w-md w-full">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
                         {isSignUp ? "Sign Up" : "Sign In"}
                     </h2>
 
-                    <form
-                        className="space-y-4"
-                        onSubmit={(e) => e.preventDefault()}
-                    >
+                    <form className="space-y-4" action={handleSubmit}>
                         {isSignUp && (
                             <div>
                                 <label
                                     htmlFor="username"
                                     className="block text-sm font-medium text-gray-700 mb-1"
                                 >
-                                    Username
+                                    Name
                                 </label>
                                 <input
                                     type="text"
                                     id="username"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    name="username"
+                                    required={isSignUp}
+                                    className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Choose a username"
                                 />
                             </div>
@@ -44,7 +56,9 @@ export default function Auth() {
                             <input
                                 type="email"
                                 id="email"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                name="email"
+                                required
+                                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 placeholder="your@email.com"
                             />
                         </div>
@@ -59,7 +73,9 @@ export default function Auth() {
                             <input
                                 type="password"
                                 id="password"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                name="password"
+                                required
+                                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -75,7 +91,8 @@ export default function Auth() {
                                 <input
                                     type="password"
                                     id="confirmPassword"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    name="confirmPassword"
+                                    className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="••••••••"
                                 />
                             </div>
@@ -91,6 +108,7 @@ export default function Auth() {
 
                     <div className="mt-6 text-center">
                         <button
+                            type="button"
                             onClick={() => setIsSignUp(!isSignUp)}
                             className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                         >
@@ -98,10 +116,6 @@ export default function Auth() {
                                 ? "Already have an account? Sign In"
                                 : "Don't have an account? Sign Up"}
                         </button>
-                    </div>
-
-                    <div className="mt-4 text-center text-sm text-gray-500">
-                        Authentication will be integrated with Supabase
                     </div>
                 </div>
             </div>
