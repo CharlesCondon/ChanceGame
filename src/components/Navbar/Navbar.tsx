@@ -34,7 +34,7 @@ export default function Navbar() {
         });
 
         return () => subscription.unsubscribe();
-    }, [supabase.auth]);
+    }, [supabase.auth, pathname]);
 
     const links = [
         { name: "Play", url: "/coin" },
