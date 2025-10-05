@@ -10,10 +10,10 @@ export default async function Scores() {
         (await getLeaderboardData()) ?? [];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4 pt-20">
+        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4 pt-20">
             <div className="max-w-2xl w-full">
-                <div className="bg-white rounded-2xl shadow-2xl p-8">
-                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+                <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8">
+                    <h2 className="text-3xl font-bold text-center  mb-6">
                         Leaderboard
                     </h2>
 

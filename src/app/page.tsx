@@ -1,6 +1,6 @@
 export default function Home() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4">
             <div className="text-center space-y-8 max-w-2xl">
                 <h1 className="text-6xl font-bold text-white mb-4">
                     A Game of Chance
@@ -11,7 +11,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
                         href="/coin"
-                        className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 px-8 rounded-lg text-xl transition-colors"
+                        className="bg-[#baa1f8] hover:bg-[#9e86db] text-gray-900 font-bold py-4 px-8 rounded-lg text-xl transition-colors"
                     >
                         Play Game
                     </a>

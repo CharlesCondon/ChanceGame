@@ -23,9 +23,9 @@ export default async function Profile() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4 pt-20">
+        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4 pt-20">
             <div className="max-w-2xl w-full">
-                <div className="bg-white rounded-2xl shadow-2xl p-8">
+                <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8">
                     <div className="text-center mb-8">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                             <span className="text-white text-4xl font-bold">

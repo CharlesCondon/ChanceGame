@@ -19,6 +19,7 @@ export default function Game() {
     const [userId, setUserId] = useState<string | null>(null);
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
     const [flipIdCounter, setFlipIdCounter] = useState(0);
+    const [isSpacePressed, setIsSpacePressed] = useState(false);
 
     const supabase = createClient();
 
@@ -44,6 +45,7 @@ export default function Game() {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.code === "Space" && !isFlipping) {
                 event.preventDefault();
+                setIsSpacePressed(true);
                 flipCoin();
             }
         };
@@ -60,26 +62,22 @@ export default function Game() {
 
         setIsFlipping(true);
 
-        // Generate result immediately but don't show it yet
         const result = Math.random() < 0.5 ? "heads" : "tails";
 
-        // Calculate final rotation - ensure it lands on the correct side
-        // Heads = 0°, Tails = 180°
-        const spins = 5 + Math.floor(Math.random() * 3); // 5-7 full spins
+        const spins = 5 + Math.floor(Math.random() * 3);
         const baseRotation = spins * 360;
         const finalRotation =
             result === "heads" ? baseRotation : baseRotation + 180;
 
         setRotation(finalRotation);
 
-        // Show result after animation completes
         setTimeout(() => {
             const newFlip: FlipResult = {
                 id: flipIdCounter,
                 result: result,
                 timestamp: Date.now(),
             };
-            setFlipHistory((prev) => [newFlip, ...prev].slice(0, 20)); // Keep last 20 flips
+            setFlipHistory((prev) => [newFlip, ...prev].slice(0, 12));
             setFlipIdCounter((prev) => prev + 1);
 
             if (result === "heads") {
@@ -98,15 +96,15 @@ export default function Game() {
             }
 
             setIsFlipping(false);
-        }, 200);
+        }, 500);
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
-                <div className="bg-white rounded-2xl shadow-2xl p-8 space-y-6">
-                    <h2 className="text-3xl font-bold text-center text-gray-800">
+                <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8 space-y-6">
+                    <h2 className="text-3xl font-bold text-center ">
                         Coin Flip Challenge
                     </h2>
 
@@ -137,7 +135,7 @@ export default function Game() {
                             style={{
                                 transform: `rotateY(${rotation}deg)`,
                                 transition: isFlipping
-                                    ? "transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                                    ? "transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
                                     : "none",
                                 transformStyle: "preserve-3d",
                             }}
@@ -171,7 +169,7 @@ export default function Game() {
                         <button
                             onClick={flipCoin}
                             disabled={isFlipping}
-                            className="w-full bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-gray-900 font-bold py-4 px-6 rounded-lg text-xl transition-colors"
+                            className="w-full bg-[#baa1f8] hover:bg-[#9e86db] disabled:bg-gray-300 disabled:cursor-not-allowed text-gray-900 font-bold py-4 px-6 rounded-lg text-xl transition-colors"
                         >
                             Flip Coin
                         </button>
