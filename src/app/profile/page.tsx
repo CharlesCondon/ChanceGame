@@ -44,12 +44,22 @@ export default async function Profile() {
                             </div>
                         </div>
 
-                        <div className="bg-gray-50 rounded-lg p-4">
-                            <label className="block text-sm font-medium text-gray-600 mb-1">
-                                High Score
-                            </label>
-                            <div className="text-lg text-gray-800">
-                                {userData?.highScore}
+                        <div className="flex row gap-4">
+                            <div className="bg-gray-50 rounded-lg p-4 flex-1">
+                                <label className="block text-sm font-medium text-gray-600 mb-1">
+                                    High Score
+                                </label>
+                                <div className="text-lg text-gray-800">
+                                    {userData?.highScore}
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 rounded-lg p-4 flex-1">
+                                <label className="block text-sm font-medium text-gray-600 mb-1">
+                                    Total Flips
+                                </label>
+                                <div className="text-lg text-gray-800">
+                                    {userData?.totalFlips}
+                                </div>
                             </div>
                         </div>
 

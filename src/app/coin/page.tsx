@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUserHighScore, updateHighScore } from "./actions";
+import { getUserHighScore, updateHighScore, updateTotalFlips } from "./actions";
 import { createClient } from "@/utils/supabase/client";
 import FlipHistory from "@/components/FlipHistory/FlipHistory";
 
@@ -19,6 +19,7 @@ export default function Game() {
     const [userId, setUserId] = useState<string | null>(null);
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
     const [flipIdCounter, setFlipIdCounter] = useState(0);
+    const [totalFlipsCount, setTotalFlipsCount] = useState(0);
 
     const supabase = createClient();
 
@@ -31,8 +32,11 @@ export default function Game() {
             if (user) {
                 setUserId(user.id);
 
-                const highScore = await getUserHighScore(user.id);
-                setBestStreak(highScore);
+                const userScores = await getUserHighScore(user.id);
+                if (userScores) {
+                    setBestStreak(userScores.highScore);
+                    setTotalFlipsCount(userScores.totalFlips);
+                }
             }
             setIsFlipping(false);
         };
@@ -69,6 +73,17 @@ export default function Game() {
 
         setRotation(finalRotation);
 
+        setTotalFlipsCount((prev) => {
+            const newCount = prev + 1;
+
+            // Every 10 flips, update the database
+            if (newCount % 10 === 0 && userId) {
+                updateTotalFlips(userId, newCount);
+            }
+
+            return newCount;
+        });
+
         setTimeout(() => {
             const newFlip: FlipResult = {
                 id: flipIdCounter,
@@ -98,12 +113,12 @@ export default function Game() {
     };
 
     return (
-        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4">
+        <div className="min-h-screen relative max-w-7xl m-auto bg-[#1b1b27] flex items-center justify-center p-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
                 <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8 space-y-6">
                     <h2 className="text-3xl font-bold text-center ">
-                        Coin Flip Challenge
+                        Let the Heads Roll
                     </h2>
 
                     <div className="grid grid-cols-2 gap-4">

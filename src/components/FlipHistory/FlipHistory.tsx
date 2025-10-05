@@ -12,7 +12,7 @@ type FlipHistoryProps = {
 
 export default function FlipHistory({ history }: FlipHistoryProps) {
     return (
-        <div className="hidden lg:block fixed right-8 top-16 bottom-8 w-20">
+        <div className="hidden md:block absolute right-8 top-16 bottom-8 w-20">
             <div className="h-full flex flex-col-reverse gap-2 overflow-hidden">
                 {history.map((flip, index) => (
                     <div
