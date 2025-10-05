@@ -1,54 +1,26 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import { getUserData } from "./actions";
 
-// interface userData {
-//     name: any;
-//     created_at: any;
-//     highScore: any;
-// }
-
-export default function Profile() {
-    const [user, setUser] = useState<any>();
-    const [loading, setLoading] = useState(true);
-    const router = useRouter();
+export default async function Profile() {
     const supabase = createClient();
 
-    useEffect(() => {
-        const getUser = async () => {
-            const {
-                data: { session },
-            } = await supabase.auth.getSession();
+    const {
+        data: { user },
+    } = await (await supabase).auth.getUser();
 
-            if (!session) {
-                router.push("/auth");
-                return;
-            }
+    if (!user) {
+        redirect("/auth");
+    }
 
-            const userData = await getUserData(session.user.id);
-
-            setUser(userData);
-            setLoading(false);
-        };
-
-        getUser();
-    }, [supabase.auth, router]);
+    const userData = await getUserData(user.id);
 
     const handleSignOut = async () => {
+        "use server";
+        const supabase = await createClient();
         await supabase.auth.signOut();
-        router.push("/");
+        redirect("/");
     };
-
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4">
-                <div className="text-white text-xl">Loading...</div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4 pt-20">
@@ -57,13 +29,9 @@ export default function Profile() {
                     <div className="text-center mb-8">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                             <span className="text-white text-4xl font-bold">
-                                {user?.name?.charAt(0).toUpperCase()}
+                                {userData?.name?.charAt(0).toUpperCase()}
                             </span>
                         </div>
-
-                        <p className="text-gray-600">
-                            Welcome back {user?.name}!
-                        </p>
                     </div>
 
                     <div className="space-y-4 mb-8">
@@ -72,7 +40,7 @@ export default function Profile() {
                                 Username
                             </label>
                             <div className="text-lg text-gray-800">
-                                {user?.name}
+                                {userData?.name}
                             </div>
                         </div>
 
@@ -81,7 +49,7 @@ export default function Profile() {
                                 High Score
                             </label>
                             <div className="text-lg text-gray-800">
-                                {user?.highScore}
+                                {userData?.highScore}
                             </div>
                         </div>
 
@@ -90,9 +58,9 @@ export default function Profile() {
                                 Account Created
                             </label>
                             <div className="text-lg text-gray-800">
-                                {user?.created_at
+                                {userData?.created_at
                                     ? new Date(
-                                          user.created_at
+                                          userData.created_at
                                       ).toLocaleDateString()
                                     : "N/A"}
                             </div>
@@ -115,12 +83,14 @@ export default function Profile() {
                     </div>
 
                     <div className="mt-6">
-                        <button
-                            onClick={handleSignOut}
-                            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-                        >
-                            Sign Out
-                        </button>
+                        <form action={handleSignOut}>
+                            <button
+                                type="submit"
+                                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                            >
+                                Sign Out
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
