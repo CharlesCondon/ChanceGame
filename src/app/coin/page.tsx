@@ -1,16 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUserHighScore, updateHighScore } from "./actions";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Game() {
     const [currentStreak, setCurrentStreak] = useState(0);
-    const [bestStreak, setBestStreak] = useState(0);
+    const [bestStreak, setBestStreak] = useState<number>(0);
     const [isFlipping, setIsFlipping] = useState(false);
     const [lastResult, setLastResult] = useState<"heads" | "tails" | null>(
         null
     );
     const [gameOver, setGameOver] = useState(false);
     const [rotation, setRotation] = useState(0);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+    const supabase = createClient();
+
+    useEffect(() => {
+        const initializeUser = async () => {
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
+
+            if (user) {
+                setUserId(user.id);
+
+                const highScore = await getUserHighScore(user.id);
+                setBestStreak(highScore);
+            }
+
+            setIsLoadingUser(false);
+        };
+
+        initializeUser();
+    }, [supabase.auth]);
 
     const flipCoin = () => {
         if (isFlipping) return;
@@ -37,8 +62,14 @@ export default function Game() {
             if (result === "heads") {
                 const newStreak = currentStreak + 1;
                 setCurrentStreak(newStreak);
+
                 if (newStreak > bestStreak) {
                     setBestStreak(newStreak);
+
+                    if (userId) {
+                        console.log(userId);
+                        updateHighScore(userId, newStreak);
+                    }
                 }
             } else {
                 setCurrentStreak(0);
@@ -46,7 +77,7 @@ export default function Game() {
             }
 
             setIsFlipping(false);
-        }, 200); // Match the animation duration
+        }, 200);
     };
 
     return (
