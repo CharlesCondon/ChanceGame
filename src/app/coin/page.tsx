@@ -19,7 +19,6 @@ export default function Game() {
     const [userId, setUserId] = useState<string | null>(null);
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
     const [flipIdCounter, setFlipIdCounter] = useState(0);
-    const [isSpacePressed, setIsSpacePressed] = useState(false);
 
     const supabase = createClient();
 
