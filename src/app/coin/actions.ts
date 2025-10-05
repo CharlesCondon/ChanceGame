@@ -8,7 +8,7 @@ export async function updateHighScore(id: string, score: number) {
     try {
         console.log("updating user score " + score);
         console.log(id);
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from("users")
             .update({ highScore: score })
             .eq("id", id);

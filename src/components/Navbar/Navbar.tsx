@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,18 +50,18 @@ export default function Navbar() {
             <nav className="absolute top-0 left-0 right-0 z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        <a
+                        <Link
                             href="/"
                             className="text-white font-bold text-xl hover:text-gray-200 transition-colors"
                         >
                             Chance
-                        </a>
+                        </Link>
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex gap-6">
                             {links.map((link) => {
                                 return (
-                                    <a
+                                    <Link
                                         key={link.url}
                                         href={link.url}
                                         className={`text-sm font-medium transition-colors ${
@@ -70,7 +71,7 @@ export default function Navbar() {
                                         }`}
                                     >
                                         {link.name}
-                                    </a>
+                                    </Link>
                                 );
                             })}
                         </div>
@@ -128,7 +129,7 @@ export default function Navbar() {
                 </div>
 
                 <nav className="flex flex-col gap-2 px-4">
-                    <a
+                    <Link
                         href="/"
                         onClick={closeMenu}
                         className={`px-4 py-3 rounded-lg text-lg font-medium transition-colors text-center ${
@@ -138,10 +139,10 @@ export default function Navbar() {
                         }`}
                     >
                         Home
-                    </a>
+                    </Link>
                     {links.map((link) => {
                         return (
-                            <a
+                            <Link
                                 key={link.url}
                                 href={link.url}
                                 onClick={closeMenu}
@@ -152,7 +153,7 @@ export default function Navbar() {
                                 }`}
                             >
                                 {link.name}
-                            </a>
+                            </Link>
                         );
                     })}
                 </nav>

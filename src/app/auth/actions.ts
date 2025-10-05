@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
-import { SupabaseClient } from "@supabase/supabase-js";
+import { PostgrestError, SupabaseClient } from "@supabase/supabase-js";
 
 export async function login(email: string, password: string) {
     const supabase = await createClient();
@@ -43,7 +43,7 @@ export async function signup(name: string, email: string, password: string) {
 export async function createNewUser(
     id: string,
     name: string,
-    supabase: SupabaseClient<any, "public", "public", any, any>
+    supabase: SupabaseClient
 ) {
     try {
         const { data, error } = await supabase
@@ -58,8 +58,8 @@ export async function createNewUser(
 
         if (error) throw error;
         return data;
-    } catch (error: any) {
-        console.error("Error creating user:", error.message);
+    } catch (error) {
+        console.error("Error creating user: ", error);
         throw error;
     }
 }
