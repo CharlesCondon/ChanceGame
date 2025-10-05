@@ -14,14 +14,9 @@ type FlipResult = {
 export default function Game() {
     const [currentStreak, setCurrentStreak] = useState(0);
     const [bestStreak, setBestStreak] = useState<number>(0);
-    const [isFlipping, setIsFlipping] = useState(false);
-    const [lastResult, setLastResult] = useState<"heads" | "tails" | null>(
-        null
-    );
-    const [gameOver, setGameOver] = useState(false);
+    const [isFlipping, setIsFlipping] = useState(true);
     const [rotation, setRotation] = useState(0);
     const [userId, setUserId] = useState<string | null>(null);
-    const [isLoadingUser, setIsLoadingUser] = useState(true);
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
     const [flipIdCounter, setFlipIdCounter] = useState(0);
 
@@ -39,18 +34,31 @@ export default function Game() {
                 const highScore = await getUserHighScore(user.id);
                 setBestStreak(highScore);
             }
-
-            setIsLoadingUser(false);
+            setIsFlipping(false);
         };
 
         initializeUser();
     }, [supabase.auth]);
 
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            if (event.code === "Space" && !isFlipping) {
+                event.preventDefault();
+                flipCoin();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyPress);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [isFlipping]);
+
     const flipCoin = () => {
         if (isFlipping) return;
 
         setIsFlipping(true);
-        setGameOver(false);
 
         // Generate result immediately but don't show it yet
         const result = Math.random() < 0.5 ? "heads" : "tails";
@@ -66,8 +74,6 @@ export default function Game() {
 
         // Show result after animation completes
         setTimeout(() => {
-            setLastResult(result);
-
             const newFlip: FlipResult = {
                 id: flipIdCounter,
                 result: result,
@@ -89,7 +95,6 @@ export default function Game() {
                 }
             } else {
                 setCurrentStreak(0);
-                setGameOver(true);
             }
 
             setIsFlipping(false);
