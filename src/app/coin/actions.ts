@@ -26,6 +26,7 @@ export async function getUserHighScore(userId: string) {
     const supabase = await createClient();
 
     try {
+        console.log("Updating user high score");
         const { data, error } = await supabase
             .from("users")
             .select("highScore")

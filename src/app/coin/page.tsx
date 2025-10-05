@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import { getUserHighScore, updateHighScore } from "./actions";
 import { createClient } from "@/utils/supabase/client";
+import FlipHistory from "@/components/FlipHistory/FlipHistory";
+
+type FlipResult = {
+    id: number;
+    result: "heads" | "tails";
+    timestamp: number;
+};
 
 export default function Game() {
     const [currentStreak, setCurrentStreak] = useState(0);
@@ -15,6 +22,8 @@ export default function Game() {
     const [rotation, setRotation] = useState(0);
     const [userId, setUserId] = useState<string | null>(null);
     const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
+    const [flipIdCounter, setFlipIdCounter] = useState(0);
 
     const supabase = createClient();
 
@@ -59,6 +68,14 @@ export default function Game() {
         setTimeout(() => {
             setLastResult(result);
 
+            const newFlip: FlipResult = {
+                id: flipIdCounter,
+                result: result,
+                timestamp: Date.now(),
+            };
+            setFlipHistory((prev) => [newFlip, ...prev].slice(0, 20)); // Keep last 20 flips
+            setFlipIdCounter((prev) => prev + 1);
+
             if (result === "heads") {
                 const newStreak = currentStreak + 1;
                 setCurrentStreak(newStreak);
@@ -67,7 +84,6 @@ export default function Game() {
                     setBestStreak(newStreak);
 
                     if (userId) {
-                        console.log(userId);
                         updateHighScore(userId, newStreak);
                     }
                 }
@@ -82,6 +98,7 @@ export default function Game() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 flex items-center justify-center p-4">
+            <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
                 <div className="bg-white rounded-2xl shadow-2xl p-8 space-y-6">
                     <h2 className="text-3xl font-bold text-center text-gray-800">
