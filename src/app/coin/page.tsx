@@ -44,7 +44,6 @@ export default function Game() {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.code === "Space" && !isFlipping) {
                 event.preventDefault();
-                setIsSpacePressed(true);
                 flipCoin();
             }
         };
