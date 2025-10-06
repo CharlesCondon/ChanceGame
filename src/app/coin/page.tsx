@@ -114,10 +114,10 @@ export default function Game() {
     };
 
     return (
-        <div className="min-h-screen relative max-w-7xl m-auto bg-[#1b1b27] flex items-center justify-center p-4">
+        <div className="min-h-screen relative max-w-7xl m-auto bg-[#1b1b27] flex items-center justify-center p-4 pt-8 md:pt-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
-                <div className="flex row items-center justify-evenly mt-12 mb-4">
+                <div className="flex row items-center justify-evenly mb-4">
                     <h2 className="text-3xl font-bold text-center text-white ">
                         Let the Heads Roll
                     </h2>
