@@ -20,6 +20,7 @@ export default function Game() {
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
     const [flipIdCounter, setFlipIdCounter] = useState(0);
     const [totalFlipsCount, setTotalFlipsCount] = useState(0);
+    const [totalOpen, setTotalOpen] = useState(false);
 
     const supabase = createClient();
 
@@ -116,14 +117,47 @@ export default function Game() {
         <div className="min-h-screen relative max-w-7xl m-auto bg-[#1b1b27] flex items-center justify-center p-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
-                <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8 space-y-6">
-                    <h2 className="text-3xl font-bold text-center ">
+                <div className="flex row items-center justify-evenly mt-12 mb-4">
+                    <h2 className="text-3xl font-bold text-center text-white ">
                         Let the Heads Roll
                     </h2>
+                    <div className="flex items-center rounded-full border border-solid w-4 h-4">
+                        {totalOpen ? (
+                            <button
+                                onClick={() => {
+                                    setTotalOpen(!totalOpen);
+                                }}
+                                className="text-xl w-full h-full mb-4"
+                            >
+                                -
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => {
+                                    setTotalOpen(!totalOpen);
+                                }}
+                                className="text-xl w-full h-full mb-4"
+                            >
+                                +
+                            </button>
+                        )}
+                    </div>
+                </div>
+                <div className="relative bg-[#29293b] rounded-2xl shadow-2xl p-8 space-y-6">
+                    {totalOpen && (
+                        <div className="bg-blue-100 rounded-lg p-4 text-center">
+                            <div className="text-xs md:text-sm text-gray-600">
+                                Total Flips
+                            </div>
+                            <div className="text-3xl font-bold text-blue-600">
+                                {totalFlipsCount}
+                            </div>
+                        </div>
+                    )}
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="bg-blue-100 rounded-lg p-4 text-center">
-                            <div className="text-sm text-gray-600">
+                            <div className="text-xs md:text-sm text-gray-600">
                                 Current Streak
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
@@ -131,7 +165,7 @@ export default function Game() {
                             </div>
                         </div>
                         <div className="bg-purple-100 rounded-lg p-4 text-center">
-                            <div className="text-sm text-gray-600">
+                            <div className="text-xs md:text-sm text-gray-600">
                                 Best Streak
                             </div>
                             <div className="text-3xl font-bold text-purple-600">
