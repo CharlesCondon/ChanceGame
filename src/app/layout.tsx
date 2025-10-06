@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rye } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar/Navbar";
+import Script from "next/script";
 
 const rye = Rye({
     weight: "400",
@@ -20,6 +21,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <Script
+                id="next"
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-03Z1EKNG35"
+            ></Script>
+            <Script id="next">
+                {` window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', 'G-03Z1EKNG35');`}
+            </Script>
             <body className={`${rye.className} antialiased`}>
                 <Navbar />
                 {children}
