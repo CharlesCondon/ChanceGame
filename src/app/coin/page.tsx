@@ -121,13 +121,13 @@ export default function Game() {
                     <h2 className="text-3xl font-bold text-center text-white ">
                         Let the Heads Roll
                     </h2>
-                    <div className="flex items-center rounded-full border border-solid w-4 h-4">
+                    <div className="flex items-center rounded-full border border-solid border-white w-4 h-4">
                         {totalOpen ? (
                             <button
                                 onClick={() => {
                                     setTotalOpen(!totalOpen);
                                 }}
-                                className="text-xl w-full h-full mb-4"
+                                className="text-xl w-full h-full mb-4 text-white"
                             >
                                 -
                             </button>
@@ -136,7 +136,7 @@ export default function Game() {
                                 onClick={() => {
                                     setTotalOpen(!totalOpen);
                                 }}
-                                className="text-xl w-full h-full mb-4"
+                                className="text-xl w-full h-full mb-4 text-white"
                             >
                                 +
                             </button>
