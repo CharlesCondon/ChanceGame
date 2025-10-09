@@ -114,7 +114,7 @@ export default function Game() {
     };
 
     return (
-        <div className="min-h-screen relative max-w-7xl m-auto flex items-center justify-center p-4 pt-8 md:pt-4">
+        <div className="sm:min-h-screen  relative max-w-7xl m-auto flex items-center justify-center p-4 pt-24 md:pt-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
                 <div className="flex row items-center justify-evenly mb-4">

@@ -23,7 +23,7 @@ export default async function Profile() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 pt-20">
+        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-24 md:pt-4">
             <div className="max-w-2xl w-full">
                 <div className="bg-[#384c5c] rounded-2xl shadow-2xl p-8">
                     <div className="text-center mb-8">
