@@ -38,7 +38,7 @@ export default async function Scores() {
                                             <div className="text-2xl font-bold text-gray-600 w-8">
                                                 {rank}
                                             </div>
-                                            <div className="font-semibold text-gray-800">
+                                            <div className="font-semibold text-gray-800 tracking-wider">
                                                 {user.name}
                                             </div>
                                         </div>

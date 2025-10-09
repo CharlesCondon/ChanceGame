@@ -150,7 +150,7 @@ export default function Game() {
                                 Total Flips
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
-                                {totalFlipsCount}
+                                {totalFlipsCount.toLocaleString("en-US")}
                             </div>
                         </div>
                     )}

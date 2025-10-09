@@ -58,7 +58,9 @@ export default async function Profile() {
                                     Total Flips
                                 </label>
                                 <div className="text-lg text-gray-800">
-                                    {userData?.totalFlips}
+                                    {userData?.totalFlips.toLocaleString(
+                                        "en-US"
+                                    )}
                                 </div>
                             </div>
                         </div>
