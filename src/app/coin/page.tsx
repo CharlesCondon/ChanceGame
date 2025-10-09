@@ -143,9 +143,9 @@ export default function Game() {
                         )}
                     </div>
                 </div>
-                <div className="relative bg-[#384c5c] rounded-2xl shadow-2xl p-8 space-y-6">
+                <div className="relative bg-[#384c5c] rounded-2xl shadow-2xl p-8 space-y-6 ">
                     {totalOpen && (
-                        <div className="bg-blue-100 rounded-lg p-4 text-center">
+                        <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
                             <div className="text-xs md:text-sm">
                                 Total Flips
                             </div>
@@ -156,7 +156,7 @@ export default function Game() {
                     )}
 
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-blue-100 rounded-lg p-4 text-center">
+                        <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
                             <div className="text-xs md:text-sm">
                                 Current Streak
                             </div>
@@ -164,7 +164,7 @@ export default function Game() {
                                 {currentStreak}
                             </div>
                         </div>
-                        <div className="bg-[#f1b6cd] rounded-lg p-4 text-center">
+                        <div className="bg-[#f1b6cd] rounded-lg p-4 text-center custom-shadow">
                             <div className="text-xs md:text-sm">
                                 Best Streak
                             </div>
@@ -191,7 +191,7 @@ export default function Game() {
                         >
                             {/* Heads Side */}
                             <div
-                                className="absolute w-full h-full rounded-full flex items-center justify-center text-4xl font-bold bg-yellow-400 text-yellow-900 shadow-lg"
+                                className="absolute w-full h-full rounded-full flex items-center justify-center text-4xl font-bold bg-yellow-400 text-yellow-900 custom-shadow"
                                 style={{
                                     backfaceVisibility: "hidden",
                                     transform: "rotateY(0deg)",
@@ -202,7 +202,7 @@ export default function Game() {
 
                             {/* Tails Side */}
                             <div
-                                className="absolute w-full h-full rounded-full flex items-center justify-center text-4xl font-bold bg-gray-400 text-gray-900 shadow-lg"
+                                className="absolute w-full h-full rounded-full flex items-center justify-center text-4xl font-bold bg-gray-400 text-gray-900 custom-shadow"
                                 style={{
                                     backfaceVisibility: "hidden",
                                     transform: "rotateY(180deg)",
@@ -217,7 +217,7 @@ export default function Game() {
                         <button
                             onClick={flipCoin}
                             disabled={isFlipping}
-                            className="w-full disabled:cursor-not-allowed disabled:text-gray-500 active:text-gray-500 text-white font-bold py-4 px-6 rounded-lg text-xl transition-colors transition-all neomorph tracking-wider"
+                            className="w-full hover:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-500 active:text-gray-500 text-white font-bold py-4 px-6 rounded-lg text-xl transition-colors transition-all neomorph tracking-wider"
                         >
                             Flip Coin
                         </button>

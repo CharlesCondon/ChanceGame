@@ -41,12 +41,17 @@ body {
 .neomorph {
   transition: all 0.3s;
   background: #384c5c;
-  box-shadow:  11px 10px 22px #2c3c49,
-              -11px -10px 22px #445c6f;
+  box-shadow:  7px 5px 10px #2c3c49,
+              -7px -5px 10px #445c6f;
 }
 .neomorph:active {
   box-shadow: inset 4px 4px 12px #2c3c49, inset -4px -4px 12px #445c6f;
 }
 .neomorph:disabled {
   box-shadow: inset 4px 4px 12px #2c3c49, inset -4px -4px 12px #445c6f;
+}
+
+.custom-shadow {
+   box-shadow:  11px 10px 22px #2c3c49,
+              -11px -10px 22px #445c6f;
 }
