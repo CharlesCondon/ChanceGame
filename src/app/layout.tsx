@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar/Navbar";
 import Script from "next/script";
 import Background from "@/components/Background/Background";
+import Footer from "@/components/Footer/Footer";
 
 const rye = Rye({
     weight: "400",
@@ -38,6 +39,7 @@ export default function RootLayout({
                 <Background />
                 <Navbar />
                 {children}
+                <Footer />
             </body>
         </html>
     );
