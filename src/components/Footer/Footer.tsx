@@ -16,7 +16,7 @@ export default function Footer() {
                 </p>
                 <p>
                     <Link
-                        href="https://www.charlescon.com/"
+                        href="https://youtu.be/GNo_BZIWIdg?si=p5tlGZweiEKg86Xf&t=1373"
                         className={`hover:text-white`}
                     >
                         Origin
