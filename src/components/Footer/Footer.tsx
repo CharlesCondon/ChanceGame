@@ -7,20 +7,24 @@ export default function Footer() {
             <div className="text-gray-400 text-xs md:text-sm flex row justify-between items-center pb-2 max-w-7xl mx-auto ">
                 <p>
                     Made by
-                    <Link
+                    <a
                         href="https://www.charlescon.com/"
                         className={`hover:text-white pl-1 underline`}
+                        rel="noopener noreferrer"
+                        target="_blank"
                     >
                         Charles
-                    </Link>
+                    </a>
                 </p>
                 <p>
-                    <Link
+                    <a
                         href="https://youtu.be/GNo_BZIWIdg?si=p5tlGZweiEKg86Xf&t=1373"
                         className={`hover:text-white`}
+                        rel="noopener noreferrer"
+                        target="_blank"
                     >
                         Origin
-                    </Link>
+                    </a>
                 </p>
             </div>
         </footer>
