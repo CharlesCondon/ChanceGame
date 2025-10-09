@@ -114,7 +114,7 @@ export default function Game() {
     };
 
     return (
-        <div className="sm:min-h-screen  relative max-w-7xl m-auto flex items-center justify-center p-4 pt-24 md:pt-4">
+        <div className="sm:min-h-screen  relative max-w-7xl m-auto flex items-center justify-center p-4 pt-16 md:pt-4 pb-16">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
                 <div className="flex row items-center justify-evenly mb-4">
@@ -146,7 +146,7 @@ export default function Game() {
                 <div className="relative bg-[#384c5c] rounded-2xl shadow-2xl p-8 space-y-6 ">
                     {totalOpen && (
                         <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
-                            <div className="text-xs md:text-sm">
+                            <div className="text-xs md:text-sm text-[#171717]">
                                 Total Flips
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
@@ -157,7 +157,7 @@ export default function Game() {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
-                            <div className="text-xs md:text-sm">
+                            <div className="text-xs md:text-sm text-[#171717]">
                                 Current Streak
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
@@ -165,7 +165,7 @@ export default function Game() {
                             </div>
                         </div>
                         <div className="bg-[#f1b6cd] rounded-lg p-4 text-center custom-shadow">
-                            <div className="text-xs md:text-sm">
+                            <div className="text-xs md:text-sm text-[#171717]">
                                 Best Streak
                             </div>
                             <div className="text-3xl font-bold text-purple-600">
