@@ -23,9 +23,9 @@ export default async function Profile() {
     };
 
     return (
-        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4 pt-20">
+        <div className="min-h-screen flex items-center justify-center p-4 pt-20">
             <div className="max-w-2xl w-full">
-                <div className="bg-[#29293b] rounded-2xl shadow-2xl p-8">
+                <div className="bg-[#384c5c] rounded-2xl shadow-2xl p-8">
                     <div className="text-center mb-8">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                             <span className="text-white text-4xl font-bold">
@@ -80,13 +80,13 @@ export default async function Profile() {
                     <div className="flex flex-col sm:flex-row gap-4">
                         <a
                             href="/coin"
-                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-colors"
+                            className="flex-1 bg-[#f1b6cd] hover:bg-[#cf93aa] text-gray-800 py-3 px-6 rounded-lg text-center transition-colors"
                         >
                             Play Game
                         </a>
                         <a
                             href="/scores"
-                            className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-colors"
+                            className="flex-1 bg-blue-100 hover:bg-blue-200 text-gray-800 py-3 px-6 rounded-lg text-center transition-colors"
                         >
                             View Scores
                         </a>
@@ -96,7 +96,7 @@ export default async function Profile() {
                         <form action={handleSignOut}>
                             <button
                                 type="submit"
-                                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                                className="w-full bg-red-300 hover:bg-red-400 text-gray-800 py-2 px-6 rounded-lg transition-colors"
                             >
                                 Sign Out
                             </button>

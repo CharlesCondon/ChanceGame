@@ -52,7 +52,7 @@ export default function Navbar() {
                     <div className="flex justify-between items-center h-16">
                         <Link
                             href="/"
-                            className="text-white font-bold text-xl hover:text-gray-200 transition-colors"
+                            className="text-white font-bold text-xl hover:text-gray-200 transition-colors tracking-wider"
                         >
                             Chance
                         </Link>

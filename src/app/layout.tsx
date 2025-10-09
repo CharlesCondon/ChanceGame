@@ -3,6 +3,7 @@ import { Rye } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar/Navbar";
 import Script from "next/script";
+import Background from "@/components/Background/Background";
 
 const rye = Rye({
     weight: "400",
@@ -34,6 +35,7 @@ export default function RootLayout({
                     gtag('config', 'G-03Z1EKNG35');`}
             </Script>
             <body className={`${rye.className} antialiased`}>
+                <Background />
                 <Navbar />
                 {children}
             </body>

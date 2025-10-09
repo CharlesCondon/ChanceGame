@@ -19,7 +19,7 @@ export default function Auth() {
     };
 
     return (
-        <div className="min-h-screen bg-[#1b1b27] flex items-center justify-center p-4 pt-20">
+        <div className="min-h-screen flex items-center justify-center p-4 pt-20">
             <div className="max-w-md w-full">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">

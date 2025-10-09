@@ -24,3 +24,29 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(20px);
+  }
+}
+
+.animate-float {
+  animation: float 1s ease-in-out infinite;
+}
+
+.neomorph {
+  transition: all 0.3s;
+  background: #384c5c;
+  box-shadow:  11px 10px 22px #2c3c49,
+              -11px -10px 22px #445c6f;
+}
+.neomorph:active {
+  box-shadow: inset 4px 4px 12px #2c3c49, inset -4px -4px 12px #445c6f;
+}
+.neomorph:disabled {
+  box-shadow: inset 4px 4px 12px #2c3c49, inset -4px -4px 12px #445c6f;
+}

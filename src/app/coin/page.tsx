@@ -110,11 +110,11 @@ export default function Game() {
             }
 
             setIsFlipping(false);
-        }, 500);
+        }, 750);
     };
 
     return (
-        <div className="min-h-screen relative max-w-7xl m-auto bg-[#1b1b27] flex items-center justify-center p-4 pt-8 md:pt-4">
+        <div className="min-h-screen relative max-w-7xl m-auto flex items-center justify-center p-4 pt-8 md:pt-4">
             <FlipHistory history={flipHistory} />
             <div className="max-w-md w-full">
                 <div className="flex row items-center justify-evenly mb-4">
@@ -143,10 +143,10 @@ export default function Game() {
                         )}
                     </div>
                 </div>
-                <div className="relative bg-[#29293b] rounded-2xl shadow-2xl p-8 space-y-6">
+                <div className="relative bg-[#384c5c] rounded-2xl shadow-2xl p-8 space-y-6">
                     {totalOpen && (
                         <div className="bg-blue-100 rounded-lg p-4 text-center">
-                            <div className="text-xs md:text-sm text-gray-600">
+                            <div className="text-xs md:text-sm">
                                 Total Flips
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
@@ -157,15 +157,15 @@ export default function Game() {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="bg-blue-100 rounded-lg p-4 text-center">
-                            <div className="text-xs md:text-sm text-gray-600">
+                            <div className="text-xs md:text-sm">
                                 Current Streak
                             </div>
                             <div className="text-3xl font-bold text-blue-600">
                                 {currentStreak}
                             </div>
                         </div>
-                        <div className="bg-purple-100 rounded-lg p-4 text-center">
-                            <div className="text-xs md:text-sm text-gray-600">
+                        <div className="bg-[#f1b6cd] rounded-lg p-4 text-center">
+                            <div className="text-xs md:text-sm">
                                 Best Streak
                             </div>
                             <div className="text-3xl font-bold text-purple-600">
@@ -174,6 +174,7 @@ export default function Game() {
                         </div>
                     </div>
 
+                    {/* Coins */}
                     <div
                         className="flex justify-center my-8"
                         style={{ perspective: "1000px" }}
@@ -182,7 +183,7 @@ export default function Game() {
                             style={{
                                 transform: `rotateY(${rotation}deg)`,
                                 transition: isFlipping
-                                    ? "transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                                    ? "transform 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94)"
                                     : "none",
                                 transformStyle: "preserve-3d",
                             }}
@@ -216,7 +217,7 @@ export default function Game() {
                         <button
                             onClick={flipCoin}
                             disabled={isFlipping}
-                            className="w-full bg-[#baa1f8] hover:bg-[#9e86db] disabled:bg-gray-300 disabled:cursor-not-allowed text-gray-900 font-bold py-4 px-6 rounded-lg text-xl transition-colors"
+                            className="w-full disabled:cursor-not-allowed disabled:text-gray-500 active:text-gray-500 text-white font-bold py-4 px-6 rounded-lg text-xl transition-colors transition-all neomorph tracking-wider"
                         >
                             Flip Coin
                         </button>
