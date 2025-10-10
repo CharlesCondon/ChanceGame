@@ -8,10 +8,16 @@ interface LeaderboardUser {
     score: number;
 }
 
+type LeaderboardColumn =
+    | "highScore"
+    | "totalFlips"
+    | "totalHeads"
+    | "luckScore";
+
 export default function LeaderboardDetails({
     leaderboard,
 }: {
-    leaderboard: string;
+    leaderboard: LeaderboardColumn;
 }) {
     const [leaderboardData, setLeaderboardData] = useState<LeaderboardUser[]>(
         []
