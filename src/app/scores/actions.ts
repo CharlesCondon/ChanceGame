@@ -7,7 +7,17 @@ interface LeaderboardUser {
     score: number;
 }
 
-export async function getLeaderboardData(order: string): Promise<LeaderboardUser[]> {
+interface DatabaseUser {
+    name: string;
+    highScore?: number;
+    totalFlips?: number;
+    totalHeads?: number;
+    luckScore?: number
+}
+
+type LeaderboardColumn = "highScore" | "totalFlips" | "totalHeads" | "luckScore";
+
+export async function getLeaderboardData(order: LeaderboardColumn): Promise<LeaderboardUser[]> {
     const supabase = await createClient();
 
     try {
@@ -22,8 +32,8 @@ export async function getLeaderboardData(order: string): Promise<LeaderboardUser
             return [];
         }
         
-        const formattedData: LeaderboardUser[] = data.map((user) => {
-            return {name: user.name, score:user[order]}
+        const formattedData: LeaderboardUser[] = data.map((user: DatabaseUser) => {
+            return {name: user.name as string, score: user[order] as number}
         })
 
         return formattedData;
