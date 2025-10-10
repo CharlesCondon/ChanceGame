@@ -3,14 +3,26 @@
 import LeaderboardDetails from "@/components/LeaderboardDetails.tsx/LeaderboardDetails";
 import { useState } from "react";
 
-export default function Scores() {
-    const [leaderboard, setLeaderboard] = useState("highScore");
+type LeaderboardColumn =
+    | "highScore"
+    | "totalFlips"
+    | "totalHeads"
+    | "luckScore";
 
-    const boardType1 = [
+interface Board {
+    type: LeaderboardColumn;
+    label: string;
+}
+
+export default function Scores() {
+    const [leaderboard, setLeaderboard] =
+        useState<LeaderboardColumn>("highScore");
+
+    const boardType1: Board[] = [
         { type: "highScore", label: "Streak" },
         { type: "totalFlips", label: "Total Flips" },
     ];
-    const boardType2 = [
+    const boardType2: Board[] = [
         { type: "totalHeads", label: "Total Heads" },
         { type: "luckScore", label: "Luck" },
     ];
