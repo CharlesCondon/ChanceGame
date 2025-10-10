@@ -30,7 +30,7 @@ export default function Scores() {
     return (
         <div className="sm:min-h-screen flex items-center justify-center p-4 pt-24 md:pt-4">
             <div className="max-w-2xl w-full">
-                <div className="bg-[#384c5c] rounded-2xl shadow-2xl py-8 px-4 md:px-8">
+                <div className="bg-[#384c5c] rounded-2xl shadow-2xl py-8 px-4 md:px-8 min-h-[32.75rem] md:min-h-[35.63rem]">
                     <h2 className="text-3xl font-bold text-center mb-6 text-white tracking-wide">
                         Leaderboards
                     </h2>
