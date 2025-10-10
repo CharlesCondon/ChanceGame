@@ -81,7 +81,7 @@ export default function LeaderboardDetails({
                                             ? "heads"
                                             : leaderboard === "totalFlips"
                                             ? "flips"
-                                            : ""}
+                                            : "/ 10"}
                                     </span>
                                 </div>
                             </div>
