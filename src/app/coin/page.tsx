@@ -58,6 +58,7 @@ export default function Game() {
         return () => {
             window.removeEventListener("keydown", handleKeyPress);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFlipping]);
 
     const flipCoin = () => {
@@ -217,7 +218,7 @@ export default function Game() {
                         <button
                             onClick={flipCoin}
                             disabled={isFlipping}
-                            className="w-full hover:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-500 active:text-gray-500 text-white font-bold py-4 px-6 rounded-lg text-xl transition-colors transition-all neomorph tracking-wider"
+                            className="w-full hover:cursor-pointer disabled:cursor-not-allowed disabled:text-gray-500 active:text-gray-500 text-white font-bold py-4 px-6 rounded-lg text-xl transition-all neomorph tracking-wider"
                         >
                             Flip Coin
                         </button>

@@ -40,6 +40,8 @@ export default function Auth() {
                                     id="username"
                                     name="username"
                                     required={isSignUp}
+                                    minLength={3}
+                                    maxLength={10}
                                     className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Choose a username"
                                 />
