@@ -23,10 +23,10 @@ export default async function Profile() {
     };
 
     return (
-        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-24 md:pt-4">
+        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-16 md:pt-4 ">
             <div className="max-w-2xl w-full">
-                <div className="bg-[#384c5c] rounded-2xl shadow-2xl p-8">
-                    <div className="text-center mb-8">
+                <div className="bg-[#384c5c] rounded-2xl shadow-2xl px-4 py-4 md:py-8 md:px-8">
+                    <div className="text-center mb-8 hidden md:block">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                             <span className="text-white text-4xl font-bold">
                                 {userData?.name?.charAt(0).toUpperCase()}
@@ -35,7 +35,7 @@ export default async function Profile() {
                     </div>
 
                     <div className="space-y-4 mb-8">
-                        <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4">
                             <label className="block text-sm font-medium text-gray-600 mb-1">
                                 Username
                             </label>
@@ -44,28 +44,49 @@ export default async function Profile() {
                             </div>
                         </div>
 
-                        <div className="flex row gap-4">
-                            <div className="bg-gray-50 rounded-lg p-4 flex-1">
-                                <label className="block text-sm font-medium text-gray-600 mb-1">
-                                    High Score
-                                </label>
-                                <div className="text-lg text-gray-800">
-                                    {userData?.highScore}
+                        <div className="flex flex-col md:flex-row gap-4 ">
+                            <div className="flex row gap-4 flex-1">
+                                <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4 flex-1">
+                                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                                        High Score
+                                    </label>
+                                    <div className="text-lg text-gray-800">
+                                        {userData?.highScore}
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4 flex-1">
+                                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                                        Total Flips
+                                    </label>
+                                    <div className="text-lg text-gray-800">
+                                        {userData?.totalFlips.toLocaleString(
+                                            "en-US"
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 rounded-lg p-4 flex-1">
-                                <label className="block text-sm font-medium text-gray-600 mb-1">
-                                    Total Flips
-                                </label>
-                                <div className="text-lg text-gray-800">
-                                    {userData?.totalFlips.toLocaleString(
-                                        "en-US"
-                                    )}
+                            <div className="flex row gap-4 flex-1">
+                                <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4 flex-1">
+                                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                                        Total Heads
+                                    </label>
+                                    <div className="text-lg text-gray-800">
+                                        {userData?.totalHeads.toLocaleString(
+                                            "en-US"
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4 flex-1">
+                                    <label className="block text-sm font-medium text-gray-600 mb-1">
+                                        Luck Score
+                                    </label>
+                                    <div className="text-lg text-gray-800">
+                                        {userData?.luckScore}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="bg-gray-50 rounded-lg px-4 py-2 md:py-4">
                             <label className="block text-sm font-medium text-gray-600 mb-1">
                                 Account Created
                             </label>
@@ -82,13 +103,13 @@ export default async function Profile() {
                     <div className="flex flex-col sm:flex-row gap-4">
                         <a
                             href="/coin"
-                            className="flex-1 bg-[#f1b6cd] hover:bg-[#cf93aa] text-gray-800 py-3 px-6 rounded-lg text-center transition-colors"
+                            className="flex-1 bg-[#f1b6cd] hover:bg-[#cf93aa] text-gray-800 px-4 py-2 md:py-4 rounded-lg text-center transition-colors"
                         >
                             Play Game
                         </a>
                         <a
                             href="/scores"
-                            className="flex-1 bg-blue-100 hover:bg-blue-200 text-gray-800 py-3 px-6 rounded-lg text-center transition-colors"
+                            className="flex-1 bg-blue-100 hover:bg-blue-200 text-gray-800 px-4 py-2 md:py-4 rounded-lg text-center transition-colors"
                         >
                             View Scores
                         </a>
@@ -98,7 +119,7 @@ export default async function Profile() {
                         <form action={handleSignOut}>
                             <button
                                 type="submit"
-                                className="w-full bg-red-300 hover:bg-red-400 text-gray-800 py-2 px-6 rounded-lg transition-colors"
+                                className="w-full bg-red-300 hover:bg-red-400 text-gray-800 px-4 py-2 md:py-4 rounded-lg transition-colors"
                             >
                                 Sign Out
                             </button>
