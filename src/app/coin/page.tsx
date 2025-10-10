@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-    getUserHighScore,
-    updateHighScore,
-    updateTotalFlips,
-    updateTotalHeads,
-} from "./actions";
+import { getUserHighScore, updateHighScore, updateTotalHeads } from "./actions";
 import { createClient } from "@/utils/supabase/client";
 import FlipHistory from "@/components/FlipHistory/FlipHistory";
 
@@ -84,12 +79,6 @@ export default function Game() {
 
         setTotalFlipsCount((prev) => {
             const newCount = prev + 1;
-
-            // Every 10 flips, update the database
-            if (newCount % 10 === 0 && userId) {
-                updateTotalFlips(userId, newCount);
-            }
-
             return newCount;
         });
 

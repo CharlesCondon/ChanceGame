@@ -22,25 +22,6 @@ export async function updateHighScore(id: string, score: number) {
     }
 }
 
-export async function updateTotalFlips(id: string, score: number) {
-    const supabase = await createClient();
-
-    try {
-        console.log("updating user's toal flips: " + score);
-        const { error } = await supabase
-            .from("users")
-            .update({ totalFlips: score })
-            .eq("id", id);
-
-        if (error) {
-            console.error("Database update error: ", error);
-        }
-    } catch (error) {
-        console.error("Error updating user data:", error);
-        return {};
-    }
-}
-
 export async function updateTotalHeads(id: string, score: number, totalFlips: number, luckScore: number) {
     const supabase = await createClient();
 
@@ -50,11 +31,12 @@ export async function updateTotalHeads(id: string, score: number, totalFlips: nu
     }
 
     try {
+        console.log("updating user's toal flips: " + totalFlips);
         console.log("updating user's toal heads: " + score);
         console.log("updating user's luck: " + newLuck);
         const { error } = await supabase
             .from("users")
-            .update({ totalHeads: score,  luckScore: newLuck})
+            .update({ totalHeads: score,  luckScore: newLuck, totalFlips: totalFlips})
             .eq("id", id);
 
         if (error) {
@@ -70,7 +52,7 @@ export async function getUserHighScore(userId: string) {
     const supabase = await createClient();
 
     try {
-        console.log("Updating user high score");
+        console.log("Fetching game scores");
         const { data, error } = await supabase
             .from("users")
             .select("highScore, totalFlips, totalHeads, luckScore")
