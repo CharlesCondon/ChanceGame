@@ -52,8 +52,8 @@ body {
 }
 
 .custom-shadow {
-   box-shadow:  11px 10px 22px #2c3c49,
-              -11px -10px 22px #445c6f;
+   box-shadow:  6px 5px 11px #2c3c49,
+              -6px -5px 11px #445c6f;
 }
 
 .neomorph-active {

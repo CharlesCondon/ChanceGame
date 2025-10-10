@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUserHighScore, updateHighScore, updateTotalFlips } from "./actions";
+import {
+    getUserHighScore,
+    updateHighScore,
+    updateTotalFlips,
+    updateTotalHeads,
+} from "./actions";
 import { createClient } from "@/utils/supabase/client";
 import FlipHistory from "@/components/FlipHistory/FlipHistory";
 
 type FlipResult = {
-    id: number;
     result: "heads" | "tails";
     timestamp: number;
 };
@@ -18,9 +22,10 @@ export default function Game() {
     const [rotation, setRotation] = useState(0);
     const [userId, setUserId] = useState<string | null>(null);
     const [flipHistory, setFlipHistory] = useState<FlipResult[]>([]);
-    const [flipIdCounter, setFlipIdCounter] = useState(0);
     const [totalFlipsCount, setTotalFlipsCount] = useState(0);
     const [totalOpen, setTotalOpen] = useState(false);
+    const [totalHeads, setTotalHeads] = useState(0);
+    const [userLuck, setUserLuck] = useState(0);
 
     const supabase = createClient();
 
@@ -37,6 +42,8 @@ export default function Game() {
                 if (userScores) {
                     setBestStreak(userScores.highScore);
                     setTotalFlipsCount(userScores.totalFlips);
+                    setTotalHeads(userScores.totalHeads);
+                    setUserLuck(userScores.luckScore);
                 }
             }
             setIsFlipping(false);
@@ -86,14 +93,30 @@ export default function Game() {
             return newCount;
         });
 
+        if (result === "heads") {
+            setTotalHeads((prev) => {
+                const newCount = prev + 1;
+
+                // Every 10 flips, update the database
+                if (userId) {
+                    updateTotalHeads(
+                        userId,
+                        newCount,
+                        totalFlipsCount,
+                        userLuck
+                    );
+                }
+
+                return newCount;
+            });
+        }
+
         setTimeout(() => {
             const newFlip: FlipResult = {
-                id: flipIdCounter,
                 result: result,
                 timestamp: Date.now(),
             };
             setFlipHistory((prev) => [newFlip, ...prev].slice(0, 12));
-            setFlipIdCounter((prev) => prev + 1);
 
             if (result === "heads") {
                 const newStreak = currentStreak + 1;
@@ -146,12 +169,22 @@ export default function Game() {
                 </div>
                 <div className="relative bg-[#384c5c] rounded-2xl shadow-2xl p-8 space-y-6 ">
                     {totalOpen && (
-                        <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
-                            <div className="text-xs md:text-sm text-[#171717]">
-                                Total Flips
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
+                                <div className="text-xs md:text-sm text-[#171717]">
+                                    Total Heads
+                                </div>
+                                <div className="text-3xl font-bold text-blue-600">
+                                    {totalHeads.toLocaleString("en-US")}
+                                </div>
                             </div>
-                            <div className="text-3xl font-bold text-blue-600">
-                                {totalFlipsCount.toLocaleString("en-US")}
+                            <div className="bg-blue-100 rounded-lg p-4 text-center custom-shadow">
+                                <div className="text-xs md:text-sm text-[#171717]">
+                                    Total Flips
+                                </div>
+                                <div className="text-3xl font-bold text-blue-600">
+                                    {totalFlipsCount.toLocaleString("en-US")}
+                                </div>
                             </div>
                         </div>
                     )}

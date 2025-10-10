@@ -1,7 +1,6 @@
 "use client";
 
 type FlipResult = {
-    id: number;
     result: "heads" | "tails";
     timestamp: number;
 };
@@ -16,7 +15,7 @@ export default function FlipHistory({ history }: FlipHistoryProps) {
             <div className="h-full flex flex-col-reverse gap-2 overflow-hidden">
                 {history.map((flip, index) => (
                     <div
-                        key={flip.id}
+                        key={flip.timestamp}
                         className={`w-16 h-16 min-h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg animate-slide-up ${
                             flip.result === "heads"
                                 ? "bg-yellow-400 text-yellow-900"
