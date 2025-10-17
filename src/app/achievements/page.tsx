@@ -90,7 +90,7 @@ export default function AchievementsPage() {
                                                     : ""
                                             }`}
                                         >
-                                            <h3 className="font-bold text-lg tracking-wide">
+                                            <h3 className="text-black font-bold text-lg tracking-wide">
                                                 {isUnlocked ? (
                                                     <>{achievement.name}</>
                                                 ) : (
@@ -108,7 +108,7 @@ export default function AchievementsPage() {
                                                     <>Keep Playing</>
                                                 )}
                                             </p>
-                                            <div className="flex justify-between items-center text-xs">
+                                            <div className="text-black flex justify-between items-center text-xs">
                                                 <span className="uppercase font-semibold">
                                                     {isUnlocked ? (
                                                         <>
