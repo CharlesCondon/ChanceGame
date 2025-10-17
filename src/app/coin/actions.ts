@@ -31,9 +31,6 @@ export async function updateTotalHeads(id: string, score: number, totalFlips: nu
     }
 
     try {
-        console.log("updating user's toal flips: " + totalFlips);
-        console.log("updating user's toal heads: " + score);
-        console.log("updating user's luck: " + newLuck);
         const { error } = await supabase
             .from("users")
             .update({ totalHeads: score,  luckScore: newLuck, totalFlips: totalFlips})
@@ -52,7 +49,6 @@ export async function getUserHighScore(userId: string) {
     const supabase = await createClient();
 
     try {
-        console.log("Fetching game scores");
         const { data, error } = await supabase
             .from("users")
             .select("highScore, totalFlips, totalHeads, luckScore")

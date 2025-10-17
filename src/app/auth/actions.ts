@@ -25,11 +25,30 @@ export async function login(email: string, password: string) {
 export async function signup(name: string, email: string, password: string) {
     const supabase = await createClient();
 
+    try {
+        const { data, error } = await supabase
+            .from("users")
+            .select("name")
+            .eq("name", name)
+            .single();
+
+        if (error) {
+            console.error("Database fetching error: ", error);
+        }
+        
+        if (data) {
+            return "Username taken";
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        return "Error validating username";
+    }
+
     const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
         console.log(error);
-        return;
+        return "Error signing up";
     }
 
     if (data.user) {
@@ -47,7 +66,7 @@ export async function createNewUser(
 ) {
     try {
         const { data, error } = await supabase
-            .from("users") // Make sure this table exists in your Supabase database
+            .from("users")
             .insert([
                 {
                     id,

@@ -23,7 +23,7 @@ export default async function Profile() {
     };
 
     return (
-        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-16 md:pt-4 ">
+        <div className="flex items-center justify-center p-4 pt-16 md:pt-4 w-full">
             <div className="max-w-2xl w-full">
                 <div className="bg-[#384c5c] rounded-2xl shadow-2xl px-4 py-4 md:py-8 md:px-8">
                     <div className="text-center mb-8 hidden md:block">
@@ -102,16 +102,16 @@ export default async function Profile() {
 
                     <div className="flex flex-col sm:flex-row gap-4">
                         <a
-                            href="/coin"
-                            className="flex-1 bg-[#f1b6cd] hover:bg-[#cf93aa] text-gray-800 px-4 py-2 md:py-4 rounded-lg text-center transition-colors"
-                        >
-                            Play Game
-                        </a>
-                        <a
-                            href="/scores"
+                            href="/stats"
                             className="flex-1 bg-blue-100 hover:bg-blue-200 text-gray-800 px-4 py-2 md:py-4 rounded-lg text-center transition-colors"
                         >
-                            View Scores
+                            Stats
+                        </a>
+                        <a
+                            href="/achievements"
+                            className="flex-1 bg-blue-100 hover:bg-blue-200 text-gray-800 px-4 py-2 md:py-4 rounded-lg text-center transition-colors"
+                        >
+                            Achievements
                         </a>
                     </div>
 

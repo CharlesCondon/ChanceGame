@@ -37,11 +37,14 @@ export default function Navbar() {
     }, [supabase.auth, pathname]);
 
     const links = [
-        { name: "Play", url: "/coin" },
-        { name: "Scores", url: "/scores" },
+        { name: "Play", url: "/coin", authNeeded: false },
+        { name: "Leaderboards", url: "/scores", authNeeded: false },
+        { name: "Achievements", url: "/achievements", authNeeded: true },
+        { name: "Statistics ", url: "/stats", authNeeded: true },
         {
-            name: isAuthenticated ? "Account" : "Sign In",
+            name: isAuthenticated ? "Profile" : "Sign In",
             url: isAuthenticated ? "/profile" : "/auth",
+            authNeeded: false,
         },
     ];
 
@@ -60,6 +63,9 @@ export default function Navbar() {
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex gap-6">
                             {links.map((link) => {
+                                if (link.authNeeded && !isAuthenticated) {
+                                    return null;
+                                }
                                 return (
                                     <Link
                                         key={link.url}
@@ -141,6 +147,9 @@ export default function Navbar() {
                         Home
                     </Link>
                     {links.map((link) => {
+                        if (link.authNeeded && !isAuthenticated) {
+                            return null;
+                        }
                         return (
                             <Link
                                 key={link.url}

@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { getUserHighScore, updateHighScore, updateTotalHeads } from "./actions";
+import { checkAchievements, Achievement } from "@/app/achievements/actions";
 import { createClient } from "@/utils/supabase/client";
 import FlipHistory from "@/components/FlipHistory/FlipHistory";
+import AchievementNotification from "@/components/AchievementNotification/AchievementNotification";
 
 type FlipResult = {
     result: "heads" | "tails";
@@ -21,9 +23,13 @@ export default function Game() {
     const [totalOpen, setTotalOpen] = useState(false);
     const [totalHeads, setTotalHeads] = useState(0);
     const [userLuck, setUserLuck] = useState(0);
+    const [achievementQueue, setAchievementQueue] = useState<Achievement[]>([]);
+    const [currentAchievement, setCurrentAchievement] =
+        useState<Achievement | null>(null);
 
     const supabase = createClient();
 
+    // initialize user and user's scores
     useEffect(() => {
         const initializeUser = async () => {
             const {
@@ -47,6 +53,15 @@ export default function Game() {
         initializeUser();
     }, [supabase.auth]);
 
+    // achievement queue
+    useEffect(() => {
+        if (achievementQueue.length > 0 && !currentAchievement) {
+            setCurrentAchievement(achievementQueue[0]);
+            setAchievementQueue((prev) => prev.slice(1));
+        }
+    }, [achievementQueue, currentAchievement]);
+
+    // spacebar event listener
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.code === "Space" && !isFlipping) {
@@ -62,6 +77,21 @@ export default function Game() {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFlipping]);
+
+    async function handleAchievements() {
+        if (!userId) {
+            return;
+        }
+        const { newlyUnlocked } = await checkAchievements(userId, {
+            totalFlips: totalFlipsCount,
+            totalHeads,
+            highScore: bestStreak,
+        });
+
+        if (newlyUnlocked.length > 0) {
+            setAchievementQueue((prev) => [...prev, ...newlyUnlocked]);
+        }
+    }
 
     const flipCoin = () => {
         if (isFlipping) return;
@@ -86,7 +116,6 @@ export default function Game() {
             setTotalHeads((prev) => {
                 const newCount = prev + 1;
 
-                // Every 10 flips, update the database
                 if (userId) {
                     updateTotalHeads(
                         userId,
@@ -98,6 +127,7 @@ export default function Game() {
 
                 return newCount;
             });
+            handleAchievements();
         }
 
         setTimeout(() => {
@@ -127,8 +157,12 @@ export default function Game() {
     };
 
     return (
-        <div className="sm:min-h-screen  relative max-w-7xl m-auto flex items-center justify-center p-4 pt-16 md:pt-4 pb-16">
+        <div className="max-w-7xl m-auto flex items-center justify-center p-4 pt-16 md:pt-4 pb-16 w-full">
             <FlipHistory history={flipHistory} />
+            <AchievementNotification
+                achievement={currentAchievement}
+                onClose={() => setCurrentAchievement(null)}
+            />
             <div className="max-w-md w-full">
                 <div className="flex row items-center justify-evenly mb-4">
                     <h2 className="text-3xl font-bold text-center text-white ">

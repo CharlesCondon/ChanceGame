@@ -35,10 +35,14 @@ export default function RootLayout({
 
                     gtag('config', 'G-03Z1EKNG35');`}
             </Script>
-            <body className={`${rye.className} antialiased`}>
+            <body
+                className={`${rye.className} antialiased flex flex-col min-h-screen`}
+            >
                 <Background />
                 <Navbar />
-                {children}
+                <main className="flex flex-1 items-center justify-center">
+                    {children}
+                </main>
                 <Footer />
             </body>
         </html>

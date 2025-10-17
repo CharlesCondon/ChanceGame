@@ -5,6 +5,7 @@ import { login, signup } from "./actions";
 
 export default function Auth() {
     const [isSignUp, setIsSignUp] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleSubmit = async (formData: FormData) => {
         const email = formData.get("email") as string;
@@ -12,14 +13,17 @@ export default function Auth() {
 
         if (isSignUp) {
             const username = formData.get("username") as string;
-            await signup(username, email, password);
+            const msg = await signup(username, email, password);
+            if (msg) {
+                setErrorMsg(msg);
+            }
         } else {
             await login(email, password);
         }
     };
 
     return (
-        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-24 md:pt-4">
+        <div className="flex items-center justify-center p-4 pt-24 md:pt-4 w-full">
             <div className="max-w-md w-full">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
@@ -99,7 +103,7 @@ export default function Auth() {
                                 />
                             </div>
                         )}
-
+                        <div className="text-red-600 mb-4">{errorMsg}</div>
                         <button
                             type="submit"
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"

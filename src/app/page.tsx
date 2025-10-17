@@ -1,6 +1,6 @@
 export default function Home() {
     return (
-        <div className="sm:min-h-screen flex items-center justify-center p-4 pt-[30vh] sm:pt-4">
+        <div className="flex items-center justify-center p-4">
             <div className="text-center space-y-8 max-w-2xl">
                 <h1 className="text-6xl font-bold text-white mb-4">
                     A Game of Chance
