@@ -56,6 +56,7 @@ export async function getUserAchievements(userId: string): Promise<UserAchieveme
             return [];
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data?.map((item: any) => ({
             ...item.achievements,
             unlocked_at: item.unlocked_at,
