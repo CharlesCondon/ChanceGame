@@ -121,7 +121,8 @@ export default function Game() {
                         userId,
                         newCount,
                         totalFlipsCount,
-                        userLuck
+                        userLuck,
+                        bestStreak
                     );
                 }
 

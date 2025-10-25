@@ -22,10 +22,25 @@ export async function updateHighScore(id: string, score: number) {
     }
 }
 
-export async function updateTotalHeads(id: string, score: number, totalFlips: number, luckScore: number) {
+function calculateLuckScore(totalHeads: number, totalFlips: number, highScore: number): number {
+    if (totalFlips === 0) return 50.0;
+    
+    const headsPercentage = totalHeads / totalFlips;
+    const headsDeviation = Math.abs(headsPercentage - 0.5) * 100;
+    const headsScore = 50 + (headsPercentage > 0.5 ? headsDeviation : -headsDeviation);
+    
+    const streakProbability = Math.pow(0.5, highScore);
+    const streakScore = 50 + (50 * (1 - Math.min(1, streakProbability * 1000)));
+    
+    const luckScore = (headsScore * 0.7) + (streakScore * 0.3);
+    
+    return parseFloat((Math.min(100, Math.max(0, luckScore)) / 10).toFixed(2));
+}
+
+export async function updateTotalHeads(id: string, score: number, totalFlips: number, luckScore: number, bestStreak: number) {
     const supabase = await createClient();
 
-    let newLuck = parseFloat(((score / totalFlips) * 10).toFixed(2));
+    let newLuck = calculateLuckScore(score, totalFlips, bestStreak)
     if (newLuck === luckScore) {
         newLuck = luckScore;
     }
